@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newapp/provider/auth_provider.dart';
 import 'package:newapp/utils/colors.dart';
 import 'package:newapp/utils/styles/text_styles.dart';
+import 'package:newapp/utils/text_editing_controller.dart';
 import 'package:provider/provider.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -17,9 +18,15 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   @override
+  void dispose() {
+    MyTextEditingController.mailController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: context.watch<AuthProvider>().mailController,
+      controller: MyTextEditingController.mailController,
       autofillHints: const [AutofillHints.email],
       keyboardType: widget.type,
       cursorColor: MyColors.myBrown,

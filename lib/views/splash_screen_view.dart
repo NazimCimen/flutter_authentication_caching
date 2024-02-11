@@ -3,6 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:newapp/cache/auth_cache_manager.dart';
 import 'package:newapp/utils/app_background.dart';
 import 'package:newapp/utils/colors.dart';
+import 'package:newapp/utils/string_constants.dart';
 import 'package:newapp/utils/styles/text_styles.dart';
 import 'package:newapp/views/home_view.dart';
 import 'package:newapp/views/login_view.dart';
@@ -52,7 +53,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
             runSpacing: 10,
             children: [
               Text(
-                'LOADING..',
+                StringConstants.loading,
                 style: MyStyles.myTextStyle,
               ),
               SpinKitCircle(

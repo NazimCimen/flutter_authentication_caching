@@ -5,6 +5,7 @@ import 'package:newapp/provider/auth_provider.dart';
 import 'package:newapp/utils/app_background.dart';
 import 'package:newapp/utils/colors.dart';
 import 'package:newapp/utils/styles/text_styles.dart';
+import 'package:newapp/utils/text_editing_controller.dart';
 import 'package:newapp/views/components/custom_button.dart';
 import 'package:newapp/views/components/email_text_form_field.dart';
 import 'package:newapp/views/components/password_text_field.dart';
@@ -97,18 +98,12 @@ class SignupView extends StatelessWidget {
                       onPressed: () async {
                         context.read<AuthProvider>().postSignup(
                             SignupRequestModel(
-                                email: context
-                                    .read<AuthProvider>()
-                                    .mailController
-                                    .text,
-                                password: context
-                                    .read<AuthProvider>()
-                                    .passwordController
-                                    .text));
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomeView()));
+                              email:
+                                  MyTextEditingController.mailController.text,
+                              password: MyTextEditingController
+                                  .passwordController.text,
+                            ),
+                            context);
                       }),
                 ),
               ),

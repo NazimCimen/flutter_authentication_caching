@@ -9,8 +9,7 @@ import 'package:newapp/utils/api_extensions.dart';
 import 'package:newapp/views/home_view.dart';
 
 abstract class IAuthService {
-  Future<LoginResponseModel?> postLogin(
-      LoginRequestModel model, BuildContext context);
+  Future<LoginResponseModel?> postLogin(LoginRequestModel model);
   Future<SignupResponseModel?> postSignup(
       SignupRequestModel SignupRequestModel);
 }
@@ -22,8 +21,7 @@ class AuthService extends IAuthService {
   SignupResponseModel signupResponseModel = SignupResponseModel();
 
   @override
-  Future<LoginResponseModel?> postLogin(
-      LoginRequestModel requestModel, BuildContext context) async {
+  Future<LoginResponseModel?> postLogin(LoginRequestModel requestModel) async {
     try {
       final response = await _networkManager
           .post(ApiServiceConts.loginPath.value, data: requestModel.toJson());
@@ -32,11 +30,7 @@ class AuthService extends IAuthService {
         if (loginResponseModel.token != null) {
           await AuthCacheManager.saveUserToken(
               token: loginResponseModel.token!);
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomeView(),
-              ));
+
           return loginResponseModel;
         }
       }
@@ -52,7 +46,8 @@ class AuthService extends IAuthService {
 
   @override
   Future<SignupResponseModel?> postSignup(
-      SignupRequestModel signupRequestModel) async {
+    SignupRequestModel signupRequestModel,
+  ) async {
     try {
       final response = await _networkManager.post(
           ApiServiceConts.signupPath.value,

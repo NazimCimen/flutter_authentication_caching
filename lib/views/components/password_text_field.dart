@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:newapp/provider/auth_provider.dart';
 import 'package:newapp/utils/colors.dart';
 import 'package:newapp/utils/styles/text_styles.dart';
+import 'package:newapp/utils/text_editing_controller.dart';
 import 'package:provider/provider.dart';
 
 class PasswordTextField extends StatefulWidget {
@@ -15,9 +16,15 @@ class PasswordTextField extends StatefulWidget {
 
 class _PasswordTextFieldState extends State<PasswordTextField> {
   @override
+  void dispose() {
+    MyTextEditingController.passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: context.watch<AuthProvider>().passwordController,
+      controller: MyTextEditingController.passwordController,
       autofillHints: const [AutofillHints.password],
       keyboardType: TextInputType.visiblePassword,
       obscureText: context.watch<AuthProvider>().isSecure,
